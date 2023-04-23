@@ -12,10 +12,10 @@ export default function MyNavBar() {
           <p className={styles.titleMenu}>Menu</p>
           <div className={styles.linkContainer}>
             <Link href={"/dashboard"}>Accueil</Link>
-            <Link href={"/dashboard"}>Mon Profils</Link>
+            <Link href={"/mon-profils"}>Mon Profils</Link>
             <Link href={"/activites"}>Les Activités</Link>
-            <Link href={"/dashboard"}>Classements</Link>
-            <Link href={"/dashboard"}>Les Courreurs</Link>
+            <Link href={"/classement"}>Classements</Link>
+            <Link href={"/courreurs"}>Les Courreurs</Link>
           </div>
         </div>
       </Drawer>

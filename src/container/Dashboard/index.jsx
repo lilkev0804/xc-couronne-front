@@ -15,15 +15,10 @@ export default function DashboardContainer() {
       <MyNavBar />
       <main className={styles.mainContainer}>
         <div className={styles.container}>
-          <DashBoardCard target={`/activites`} label={"Mon Profils"}>
-            <div></div>
-          </DashBoardCard>
+          <DashBoardCard target={`/mon-profils`} label={"Mon Profils"} />
           <DashBoardCard target={`/activites`} label={"Activités"} />
-          <DashBoardCard target={`/activites`} label={"Classements"} />
-          <DashBoardCard
-            target={`/activites`}
-            label={"Les coureurs"}
-          ></DashBoardCard>
+          <DashBoardCard target={`/classement`} label={"Classements"} />
+          <DashBoardCard target={`/courreurs`} label={"Les coureurs"} />
         </div>
       </main>
     </>
