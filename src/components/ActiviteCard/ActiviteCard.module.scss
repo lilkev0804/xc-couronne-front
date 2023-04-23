@@ -1,0 +1,43 @@
+@import "../../styles/variables.scss";
+
+.container {
+  max-width: 35rem;
+  width: 100%;
+  border: 1px solid $blueXc;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.topCard {
+  background-color: $blueXc;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  color: $white;
+  font-size: 1.7rem;
+  letter-spacing: 3px;
+}
+.bodyCard {
+  padding: 0.65rem 1rem;
+}
+.mainInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.textMainInfo {
+  font-weight: 600;
+}
+.infoContainer {
+  display: flex;
+}
+.dateHourContainer,
+.localisationContainer {
+  width: 100%;
+}
+.localisationContainer {
+  text-align: right;
+}

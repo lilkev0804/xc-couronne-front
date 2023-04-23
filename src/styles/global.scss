@@ -4,7 +4,7 @@
 html,
 body {
   padding: 0;
-  background-color: $black;
+  // background-color: $black;
   margin: 0;
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
@@ -45,4 +45,10 @@ h3 {
 .errorMessage {
   color: red;
   font-weight: 600;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 80vh;
 }

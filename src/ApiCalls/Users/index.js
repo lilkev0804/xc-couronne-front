@@ -77,3 +77,36 @@ export const loginUser = async ({ username, password }) => {
   });
   return { data, errors };
 };
+
+export const getUserId = async ({ id }) => {
+  const { data, errors } = await xcApollo.query({
+    query: gql`
+      query GetUserById($getUserByIdId: ID) {
+        getUserById(id: $getUserByIdId) {
+          id
+          status
+          username
+          password
+          admin
+          first_connexion
+          encadrant
+          participations {
+            idEvent
+            resultatScratch
+            resultatCat
+            frais
+          }
+          information {
+            bikes
+            licenceType
+            stravaAccount
+          }
+        }
+      }
+    `,
+    variables: {
+      getUserByIdId: id,
+    },
+  });
+  return { data, errors };
+};

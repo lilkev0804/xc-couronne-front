@@ -1,0 +1,50 @@
+@import "../../styles/variables.scss";
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+.selectContainer,
+.controlInputContainer,
+.controlInputContainerInline,
+.controlButtonContainer {
+  padding: 1rem 1rem 0 1rem;
+  width: 100%;
+  max-width: 30rem;
+}
+.controlButtonContainer {
+  display: flex;
+  flex-direction: column;
+  button:first-child {
+    margin-bottom: 1rem;
+  }
+}
+.controlInputContainerInline {
+  display: flex;
+  div:first-child {
+    margin-right: 1rem;
+  }
+}
+.containerModal {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  h2 {
+    color: $blueXc;
+  }
+}
+
+@media screen and (max-width: $breakpoint-m) {
+  .controlInputContainerInline {
+    display: flex;
+    flex-direction: column;
+    div:first-child {
+      margin-right: 0rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
