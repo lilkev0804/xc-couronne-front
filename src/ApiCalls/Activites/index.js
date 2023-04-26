@@ -11,30 +11,33 @@ export const createNewActivities = async ({
   ville,
   denivele,
   distance,
+  coureur,
 }) => {
   const { data, errors } = await xcApollo.mutate({
     mutation: gql`
       mutation CreateActivities(
         $name: String
-        $discipline: EMUN_MODEL_TYPE_RACE_FORMAT
         $date: String
-        $creator: String
-        $hour: String
-        $zipcode: String
         $ville: String
+        $zipcode: String
+        $hour: String
+        $creator: String
         $denivele: Int
         $distance: Int
+        $coureur: [UserTypeInputSchema]
+        $discipline: EMUN_MODEL_TYPE_RACE_FORMAT
       ) {
         createActivities(
           name: $name
-          discipline: $discipline
           date: $date
-          creator: $creator
-          hour: $hour
-          zipcode: $zipcode
           ville: $ville
+          zipcode: $zipcode
+          hour: $hour
+          creator: $creator
           denivele: $denivele
           distance: $distance
+          coureur: $coureur
+          discipline: $discipline
         ) {
           message
           successful
@@ -51,6 +54,7 @@ export const createNewActivities = async ({
       ville: ville,
       denivele: denivele,
       distance: distance,
+      coureur: coureur,
     },
   });
   return { data, errors };
@@ -116,6 +120,30 @@ export const getActivitiesById = async ({ id }) => {
     `,
     variables: {
       getActivitiesByIdId: id,
+    },
+  });
+  return { data, errors };
+};
+
+export const addCourreurParticipation = async ({ id, coureur }) => {
+  const { data, errors } = await xcApollo.mutate({
+    mutation: gql`
+      mutation UpdateActivitiesCoureur(
+        $coureur: [UserTypeInputSchema]
+        $updateActivitiesCoureurId: ID
+      ) {
+        updateActivitiesCoureur(
+          coureur: $coureur
+          id: $updateActivitiesCoureurId
+        ) {
+          message
+          successful
+        }
+      }
+    `,
+    variables: {
+      coureur: coureur,
+      updateActivitiesCoureurId: id,
     },
   });
   return { data, errors };

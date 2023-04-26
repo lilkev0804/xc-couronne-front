@@ -86,7 +86,6 @@ export const getUserId = async ({ id }) => {
           id
           status
           username
-          password
           admin
           first_connexion
           encadrant
@@ -107,6 +106,53 @@ export const getUserId = async ({ id }) => {
     variables: {
       getUserByIdId: id,
     },
+  });
+  return { data, errors };
+};
+
+export const addParticipationUser = async ({ id, participations }) => {
+  const { data, errors } = await xcApollo.mutate({
+    mutation: gql`
+      mutation AddUserParticipation(
+        $addUserParticipationId: ID
+        $participations: [ParticipationUserTypeInputSchema]
+      ) {
+        addUserParticipation(
+          id: $addUserParticipationId
+          participations: $participations
+        ) {
+          message
+          successful
+        }
+      }
+    `,
+    variables: {
+      addUserParticipationId: id,
+      participations: participations,
+    },
+  });
+  return { data, errors };
+};
+
+export const getAllCoureur = async () => {
+  const { data, errors } = await xcApollo.query({
+    query: gql`
+      query GetAllCoureur {
+        getAllCoureur {
+          id
+          username
+          participations {
+            idEvent
+          }
+          information {
+            licenceType
+            stravaAccount
+            bikes
+          }
+          encadrant
+        }
+      }
+    `,
   });
   return { data, errors };
 };

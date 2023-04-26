@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
     setLoading(true);
     const local = localStorage.getItem("user");
     if (local) {
-      getUser();
+      getUser(local);
       return;
     }
     setLoading(false);

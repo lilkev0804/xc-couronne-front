@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./Navbar.module.scss";
-import { Drawer } from "@mui/material";
+import { Button, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useGlobalContext } from "@/store/globalcontext";
 export default function MyNavBar() {
+  const router = useRouter();
+  const { setUser } = useGlobalContext();
   const [openMenu, setOpenMenu] = useState(false);
+
+  const handleDisconnect = useCallback(() => {
+    router.push("/");
+    localStorage.removeItem("user");
+    setUser({});
+  }, [router, setUser]);
   return (
     <div className={styles.container}>
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)}>
@@ -16,6 +26,9 @@ export default function MyNavBar() {
             <Link href={"/activites"}>Les Activités</Link>
             <Link href={"/classement"}>Classements</Link>
             <Link href={"/courreurs"}>Les Courreurs</Link>
+            <Button variant="outlined" onClick={handleDisconnect}>
+              Deconnexion
+            </Button>
           </div>
         </div>
       </Drawer>

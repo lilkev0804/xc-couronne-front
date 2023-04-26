@@ -53,6 +53,12 @@ export default function AjouterActivite() {
       zipcode: value?.zipcode,
       distance: value?.distance,
       denivele: value?.denivele,
+      coureur: [
+        {
+          id: user?.id,
+          username: user?.username,
+        },
+      ],
     });
     await createNewActivities({
       name: value.name,
@@ -81,6 +87,7 @@ export default function AjouterActivite() {
       });
   }, [
     user?.id,
+    user?.username,
     value.date,
     value?.denivele,
     value.discipline,

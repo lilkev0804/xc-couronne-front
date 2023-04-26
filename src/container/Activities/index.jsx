@@ -5,6 +5,7 @@ import styles from "./Activities.module.scss";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
 import ActiviteCard from "@/components/ActiviteCard";
+import FilterActivites from "./filter";
 export default function ActivitiesContainer({ data }) {
   const router = useRouter();
   return (
@@ -23,9 +24,10 @@ export default function ActivitiesContainer({ data }) {
               onClick={() => router.push("/activites/ajouter")}
               variant="outlined"
             >
-              Ajouter une activité
+              Ajouter une activitée
             </Button>
           </div>
+          {/* <FilterActivites /> */}
           <div className={styles.containerCard}>
             {data?.map((el, i) => (
               <ActiviteCard key={i} data={el} />
