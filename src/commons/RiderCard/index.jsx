@@ -3,7 +3,8 @@ import React from "react";
 import styles from "./RiderCard.module.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Link from "next/link";
-export default function RiderCard({ data, isWhite }) {
+export default function RiderCard({ data, isWhite, fullCard }) {
+  console.log(data);
   return (
     <div
       className={classNames(styles.container, {
@@ -31,6 +32,7 @@ export default function RiderCard({ data, isWhite }) {
           </Link>
         </div>
       </div>
+      {fullCard && <div className={styles.fullCardContainer}></div>}
     </div>
   );
 }

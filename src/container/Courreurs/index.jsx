@@ -17,9 +17,11 @@ export default function CourreursContainer({ data }) {
           <h2>Les blacks</h2>
           <Brightness1Icon sx={{ color: "black", fontSize: 50 }} />
         </div>
-        <div className={styles.cardContainer}>
+        <div className={styles.gridCard}>
           {data?.map((el, i) => (
-            <RiderCard key={i} data={el} isWhite={false} />
+            <div key={i} className={styles.cardContainer}>
+              <RiderCard data={el} fullCard={true} isWhite={false} />
+            </div>
           ))}
         </div>
       </main>

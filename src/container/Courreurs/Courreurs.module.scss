@@ -11,3 +11,15 @@
   justify-content: center;
   padding: 2rem 0;
 }
+.gridCard {
+  width: 100%;
+  max-width: $screenmax;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.cardContainer {
+  width: 100%;
+  max-width: 35rem;
+}
