@@ -1,0 +1,24 @@
+@import "../../styles/variables.scss";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.container {
+  width: 100%;
+  max-width: $screenmax;
+}
+.titleContaienr {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  letter-spacing: 0.3rem;
+  h2 {
+    font-weight: bold;
+  }
+}

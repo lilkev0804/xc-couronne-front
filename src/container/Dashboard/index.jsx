@@ -14,12 +14,26 @@ export default function DashboardContainer() {
       </Head>
       <MyNavBar />
       <main className={styles.mainContainer}>
+        <div>
+          <h2>Coureurs</h2>
+        </div>
         <div className={styles.container}>
           <DashBoardCard target={`/mon-profils`} label={"Mon Profils"} />
           <DashBoardCard target={`/activites`} label={"Activités"} />
           <DashBoardCard target={`/classement`} label={"Classements"} />
           <DashBoardCard target={`/courreurs`} label={"Les coureurs"} />
         </div>
+        {user?.admin && (
+          <>
+            <div>
+              <h2>Administrateur</h2>
+            </div>
+            <div className={styles.container}>
+              <DashBoardCard target={`/mon-profils`} label={"Comptabilité"} />
+              <DashBoardCard target={`/activites`} label={"Commande produit"} />
+            </div>
+          </>
+        )}
       </main>
     </>
   );

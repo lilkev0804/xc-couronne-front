@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+
+.container {
+  width: 100%;
+  max-width: 40rem;
+}
+.modifiedButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.lineLabelToModified,
+.containerInputModified {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.label {
+  font-weight: 600;
+}

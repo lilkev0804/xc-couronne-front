@@ -1,5 +1,5 @@
 import SelectCustom from "@/commons/SelectCustom";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./Filter.module.scss";
 import { DatePicker } from "@mui/x-date-pickers";
 import DatePickerCustom from "@/commons/DatePickerCustome";
@@ -31,8 +31,19 @@ const data = [
   },
 ];
 
-export default function FilterActivites({ value, onChange }) {
+export default function FilterActivites({ value, onChange, handleRestart }) {
   const [openFilter, setOpenFilter] = useState(false);
+  const [localValue, setLocalValue] = useState({
+    type: "",
+    date: "",
+    nom: "",
+  });
+
+  const onSubmit = useCallback(() => {
+    onChange(localValue);
+    setOpenFilter(false);
+  }, [onChange, localValue]);
+
   return (
     <div className={styles.container}>
       {openFilter && (
@@ -42,22 +53,40 @@ export default function FilterActivites({ value, onChange }) {
           </div>
           <div className={styles.selectorContainer}>
             <SelectCustom
-              onChange={(e) => console.log(e)}
+              onChange={(e) => setLocalValue({ ...localValue, type: e })}
               width={"100%"}
               label={"Type d'activité"}
+              value={localValue?.type}
               data={data}
             />
           </div>
-          <div className={styles.selectorContainer}>
+          {/* <div className={styles.selectorContainer}>
             <DatePickerCustom
               minDate={dayjs(new Date())}
               classic={true}
-              onChange={(e) => console.log(e?.$d)}
+              onChange={(e) => setLocalValue({ ...localValue, date: e?.$d })}
               label={"Date choisie"}
             />
-          </div>
+          </div> */}
           <div className={styles.buttonContainerFilter}>
-            <Button variant="outlined">Valider</Button>
+            <Button onClick={onSubmit} variant="outlined">
+              Valider
+            </Button>
+            <Button
+              onClick={() => {
+                handleRestart();
+                setOpenFilter(false);
+                setLocalValue({
+                  type: "",
+                  date: "",
+                  nom: "",
+                });
+              }}
+              variant="outlined"
+              color="error"
+            >
+              Annuler
+            </Button>
           </div>
         </div>
       )}

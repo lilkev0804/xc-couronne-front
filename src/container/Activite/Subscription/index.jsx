@@ -18,12 +18,14 @@ export default function Subscription({ name, user, data }) {
         {
           frais: parseFloat(frais),
           idEvent: parseInt(data?.id),
+          nomEvent: data?.name,
         },
       ];
     } else {
       participation.push({
         frais: parseFloat(frais),
         idEvent: parseInt(data?.id),
+        nomEvent: data?.name,
       });
     }
 
@@ -42,6 +44,7 @@ export default function Subscription({ name, user, data }) {
   }, [
     data?.coureur,
     data?.id,
+    data?.name,
     frais,
     user?.id,
     user?.participations,

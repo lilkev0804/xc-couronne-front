@@ -32,7 +32,23 @@ export default function RiderCard({ data, isWhite, fullCard }) {
           </Link>
         </div>
       </div>
-      {fullCard && <div className={styles.fullCardContainer}></div>}
+      {fullCard && (
+        <>
+          <div className={styles.fullCardContainer}>
+            <div>
+              <p>
+                Discipline :{" "}
+                {data?.information?.pratiques.toString().replaceAll(",", " - ")}
+              </p>
+            </div>
+          </div>
+          <div className={styles.fullCardContainer}>
+            <div>
+              <p>Nombre d&apos;Activités : {data?.participations.length}</p>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

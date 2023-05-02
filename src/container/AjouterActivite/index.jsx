@@ -43,23 +43,6 @@ export default function AjouterActivite() {
       error: false,
       message: "",
     });
-    console.log({
-      name: value.name,
-      discipline: value.discipline,
-      date: value.date,
-      creator: user?.id,
-      hour: value.hour,
-      ville: value?.ville,
-      zipcode: value?.zipcode,
-      distance: value?.distance,
-      denivele: value?.denivele,
-      coureur: [
-        {
-          id: user?.id,
-          username: user?.username,
-        },
-      ],
-    });
     await createNewActivities({
       name: value.name,
       discipline: value.discipline,
@@ -70,6 +53,14 @@ export default function AjouterActivite() {
       zipcode: value?.zipcode,
       distance: parseInt(value?.distance),
       denivele: parseInt(value?.denivele),
+      coureur: user?.admin
+        ? []
+        : [
+            {
+              id: user?.id,
+              username: user?.username,
+            },
+          ],
     })
       .then((res) => {
         setModalMessage({
@@ -86,6 +77,7 @@ export default function AjouterActivite() {
         setModalOpen(true);
       });
   }, [
+    user?.admin,
     user?.id,
     user?.username,
     value.date,

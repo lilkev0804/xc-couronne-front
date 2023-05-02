@@ -1,13 +1,45 @@
 import Head from "next/head";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MyNavBar from "../Navbar";
 import styles from "./Activities.module.scss";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
 import ActiviteCard from "@/components/ActiviteCard";
 import FilterActivites from "./filter";
 export default function ActivitiesContainer({ data }) {
   const router = useRouter();
+  const [local, setLocal] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setLocal(data);
+    setLoading(false);
+  }, [data]);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      setLoading(true);
+      let el = [...data];
+      if (e?.type) {
+        const res = el.filter((el) => el.discipline === e?.type);
+        setLocal(res);
+        console.log(res);
+        setLoading(false);
+        return;
+      }
+    },
+    [data]
+  );
+
+  const handleRestart = useCallback(() => {
+    setLoading(true);
+    setLocal(data);
+    setLoading(false);
+  }, [data]);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
   return (
     <>
       <Head>
@@ -27,9 +59,12 @@ export default function ActivitiesContainer({ data }) {
               Ajouter une activitée
             </Button>
           </div>
-          {/* <FilterActivites /> */}
+          <FilterActivites
+            onChange={handleSubmit}
+            handleRestart={handleRestart}
+          />
           <div className={styles.containerCard}>
-            {data?.map((el, i) => (
+            {local?.map((el, i) => (
               <ActiviteCard key={i} data={el} />
             ))}
           </div>

@@ -2,7 +2,8 @@ import React from "react";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateField, DatePicker } from "@mui/x-date-pickers";
+import { DateField, DatePicker, frFR } from "@mui/x-date-pickers";
+import { fr } from "date-fns/locale/fr";
 
 export default function DatePickerCustom({
   label,
@@ -14,7 +15,7 @@ export default function DatePickerCustom({
 }) {
   if (classic) {
     return (
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider localeText={fr} dateAdapter={AdapterDayjs}>
         <DatePicker
           minDate={minDate}
           format="DD-MM-YYYY"
@@ -27,13 +28,14 @@ export default function DatePickerCustom({
     );
   }
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={frFR}>
       <DateField
         format="DD-MM-YYYY"
         fullWidth
         onChange={onChange}
         value={value}
         label={label}
+        adapterLocale={frFR}
       />
     </LocalizationProvider>
   );

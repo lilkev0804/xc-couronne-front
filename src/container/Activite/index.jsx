@@ -72,11 +72,11 @@ export default function ActivitePage({ data }) {
                   <p className={styles.titleCard}>
                     🦾 Participant {data?.coureur?.lenght > 0 && "s"}
                   </p>
-                  {/* {!isOwner && ( */}
-                  <Button variant="outlined" onClick={handleSubscription}>
-                    S&apos;inscrire
-                  </Button>
-                  {/* )} */}
+                  {!isOwner && (
+                    <Button variant="outlined" onClick={handleSubscription}>
+                      S&apos;inscrire
+                    </Button>
+                  )}
                 </div>
                 <div>
                   {data?.coureur?.map((el, i) => (
@@ -90,15 +90,13 @@ export default function ActivitePage({ data }) {
             <div className={styles.rightContainer}>
               <div className={styles.blockContainer}>
                 <div className={styles.headerActionBlockContainer}>
-                  <p className={styles.titleCard}>👑 Podium</p>
+                  <p className={styles.titleCard}>🦺 Encadrants</p>
                 </div>
-                <div className={styles.podiumContainer}>
-                  <Podium />
-                </div>
+                <div className={styles.podiumContainer}></div>
               </div>
               <div className={styles.blockContainer}>
                 <div className={styles.headerActionBlockContainer}>
-                  <p className={styles.titleCard}>🦺 Encadrants</p>
+                  <p className={styles.titleCard}>👑 Resultats</p>
                 </div>
                 <div className={styles.podiumContainer}></div>
               </div>
