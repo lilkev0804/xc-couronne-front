@@ -1,0 +1,76 @@
+@import "../../styles/variables.scss";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero {
+  width: 100%;
+  background-color: $blueXc;
+  min-height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+}
+.mainContainer {
+  width: 100%;
+  padding: 1rem;
+  max-width: $screenmax;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.informationContainer {
+  background-color: $blueXc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  p {
+    color: white;
+  }
+}
+.textContainer {
+  width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-weight: 600;
+  }
+}
+.columnContainer {
+  display: flex;
+  width: 100%;
+}
+.leftContainer,
+.rightContainer {
+  width: 50%;
+  padding: 1rem 0.5rem;
+}
+.blockContainer {
+  background-color: $blueXc;
+  color: $white;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.headerActionBlockContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.titleCard {
+  font-size: 1.5rem;
+}
+.podiumContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.riderCardContainer {
+  padding: 0.5rem;
+}

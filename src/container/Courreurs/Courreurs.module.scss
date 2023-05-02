@@ -1,0 +1,25 @@
+@import "../../styles/variables.scss";
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.gridCard {
+  width: 100%;
+  max-width: $screenmax;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.cardContainer {
+  width: 100%;
+  max-width: 35rem;
+}

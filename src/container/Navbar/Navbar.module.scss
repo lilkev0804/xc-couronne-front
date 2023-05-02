@@ -17,4 +17,49 @@
   text-transform: uppercase;
   color: $white;
   letter-spacing: 1.35rem;
+  text-align: center;
+}
+.menu {
+  background-color: $blueXc;
+  height: 100%;
+  padding: 1rem;
+  min-width: 25rem;
+}
+.titleMenu {
+  text-align: center;
+  font-size: 2rem;
+  color: $white;
+}
+.menuLine {
+  display: flex;
+  width: 100%;
+  max-width: $screenmax;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.buttonMenu {
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  border: none;
+}
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+  a {
+    color: $white;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media screen and (max-width: $breakpoint-m) {
+  .logo {
+    font-size: 1.5rem;
+    letter-spacing: unset;
+  }
 }

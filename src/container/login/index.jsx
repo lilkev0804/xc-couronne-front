@@ -84,7 +84,7 @@ export default function LoginContainer() {
       </div>
       <div className={styles.buttonCreateContainer}>
         <MyButton
-          disabled
+          // disabled
           label={"Créer un compte"}
           onClick={() => setModalIsOpen(!modalIsOpen)}
         />
