@@ -28,15 +28,27 @@
   height: 2rem;
   width: 2rem;
 }
-.title {
+.iconContainer {
+  padding-right: 0.5rem;
+}
+.containerTitle {
   position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: $white;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(63, 63, 63, 0.491);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
+}
+.title {
+  color: $white;
   font-size: 1.7rem;
   letter-spacing: 3px;
   font-weight: 800;
+  text-align: center;
 }
 .bodyCard {
   padding: 0.65rem 1rem;

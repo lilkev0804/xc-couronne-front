@@ -22,8 +22,8 @@ export default function MonProfilsContainer({ data }) {
           <div className={styles.titleContaienr}>
             <h2>Profils de {data?.username}</h2>
           </div>
-          <Information data={user} isVisitor />
-          <Participation data={user?.participations} user={user} isVisitor />
+          <Information data={data} isVisitor />
+          <Participation data={data?.participations} user={user} isVisitor />
         </div>
       </main>
     </>

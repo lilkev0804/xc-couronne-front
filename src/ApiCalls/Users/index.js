@@ -5,9 +5,9 @@ export const createNewUser = async ({
   status,
   username,
   encadrant,
-  admin,
   firstConnexion,
   password,
+  email,
 }) => {
   const { data, errors } = await xcApollo.mutate({
     mutation: gql`
@@ -17,7 +17,7 @@ export const createNewUser = async ({
         $password: String
         $firstConnexion: Boolean
         $encadrant: Boolean
-        $admin: Boolean
+        $email: String
       ) {
         createUser(
           status: $status
@@ -25,7 +25,7 @@ export const createNewUser = async ({
           password: $password
           first_connexion: $firstConnexion
           encadrant: $encadrant
-          admin: $admin
+          email: $email
         ) {
           admin
           encadrant
@@ -39,7 +39,7 @@ export const createNewUser = async ({
       password: password,
       firstConnexion: firstConnexion,
       encadrant: encadrant,
-      admin: admin,
+      email: email,
     },
   });
   return { data, errors };
@@ -55,6 +55,7 @@ export const loginUser = async ({ username, password }) => {
           admin
           first_connexion
           id
+          avatar
           information {
             bikes
             licenceType
@@ -67,6 +68,7 @@ export const loginUser = async ({ username, password }) => {
             resultatCat
             frais
             nomEvent
+            discipline
           }
           status
         }
@@ -91,12 +93,15 @@ export const getUserId = async ({ id }) => {
           admin
           first_connexion
           encadrant
+          avatar
           participations {
             idEvent
             resultatScratch
             resultatCat
             frais
             nomEvent
+            date
+            discipline
           }
           information {
             bikes
@@ -110,6 +115,25 @@ export const getUserId = async ({ id }) => {
     variables: {
       getUserByIdId: id,
     },
+  });
+  return { data, errors };
+};
+
+export const getAllUser = async () => {
+  const { data, errors } = await xcApollo.query({
+    query: gql`
+      query GetAllUsers {
+        getAllUsers {
+          admin
+          encadrant
+          id
+          username
+          nom
+          prenom
+          email
+        }
+      }
+    `,
   });
   return { data, errors };
 };
@@ -154,6 +178,7 @@ export const getAllCoureur = async () => {
             bikes
             pratiques
           }
+          avatar
           encadrant
         }
       }
@@ -229,6 +254,24 @@ export const updateUserParticipation = async ({ id, participations }) => {
     variables: {
       participations: participations,
       updateUserParticipationId: id,
+    },
+  });
+  return { data, errors };
+};
+
+export const updateUserToAdmin = async ({ id, admin }) => {
+  const { data, errors } = await xcApollo.mutate({
+    mutation: gql`
+      mutation UpdateUserAdmin($updateUserAdminId: ID, $admin: Boolean) {
+        updateUserAdmin(id: $updateUserAdminId, admin: $admin) {
+          message
+          successful
+        }
+      }
+    `,
+    variables: {
+      admin: admin,
+      updateUserAdminId: id,
     },
   });
   return { data, errors };

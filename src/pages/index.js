@@ -2,8 +2,10 @@ import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import LoginContainer from "@/container/login";
 import MyNavBar from "@/container/Navbar";
+import { useGlobalContext } from "@/store/globalcontext";
 
 export default function Home() {
+  const { user } = useGlobalContext();
   return (
     <>
       <Head>

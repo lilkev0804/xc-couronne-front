@@ -17,6 +17,7 @@ export default function LoginContainer() {
     password: "",
     confirmPassword: "",
   });
+  const [message, setMessage] = useState("");
 
   const handleConnect = useCallback(async () => {
     await loginUser({ username: value.username, password: value.password })
@@ -44,16 +45,24 @@ export default function LoginContainer() {
       password: value.password,
       firstConnexion: true,
       encadrant: false,
-      admin: false,
+      email: value.email,
     })
-      .then((res) => router.push("/dashboard"))
+      .then((res) => {
+        setModalIsOpen(false);
+        setMessage("Votre compte est actif 😀, connectez-vous dès maintenant");
+      })
       .catch((err) => setErrorMessage("Une erreur c'est produite!"));
-  }, [router, value.confirmPassword, value.password, value.username]);
+  }, [value.confirmPassword, value.email, value.password, value.username]);
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <h2>Connexion</h2>
+        {message && (
+          <div className={styles.errorContainer}>
+            <p>{message}</p>
+          </div>
+        )}
       </div>
       <div>
         <div className={styles.inputContainer}>
@@ -79,6 +88,7 @@ export default function LoginContainer() {
           <p className="errorMessage">{errorMessge}</p>
         </div>
       )}
+
       <div className={styles.buttonContainer}>
         <MyButton onClick={handleConnect} label={"Ce connecter"} />
       </div>
@@ -96,6 +106,14 @@ export default function LoginContainer() {
         <div>
           <div className={styles.titleContainer}>
             <h2>Création de votre compte</h2>
+          </div>
+          <div className={styles.inputContainer}>
+            <InputText
+              value={value?.email}
+              onChange={(e) => setValue({ ...value, email: e.target.value })}
+              fullWidth
+              label={"Email"}
+            />
           </div>
           <div className={styles.inputContainer}>
             <InputText

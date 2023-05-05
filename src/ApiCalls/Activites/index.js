@@ -79,11 +79,16 @@ export const getAllActivities = async () => {
           date
           denivele
           distance
-          encadrant
+
           hour
           id
           name
           discipline
+          encadrant {
+            id
+            username
+            avatar
+          }
         }
       }
     `,
@@ -96,24 +101,33 @@ export const getActivitiesById = async ({ id }) => {
     query: gql`
       query GetActivitiesById($getActivitiesByIdId: ID) {
         getActivitiesById(id: $getActivitiesByIdId) {
+          id
+          name
+          date
+          hour
+          creator
+          ville
+          zipcode
+          distance
+          denivele
+          discipline
           coureur {
             id
             username
+            avatar
+            information {
+              pratiques
+            }
           }
-          zipcode
-          ville
-          name
-          id
-          hour
-          encadrant
-          distance
-          discipline
-          denivele
-          date
-          creator
+          encadrant {
+            id
+            username
+            avatar
+          }
           podium {
             id
             username
+            avatar
           }
         }
       }
@@ -144,6 +158,29 @@ export const addCourreurParticipation = async ({ id, coureur }) => {
     variables: {
       coureur: coureur,
       updateActivitiesCoureurId: id,
+    },
+  });
+  return { data, errors };
+};
+export const addEncadrantEvent = async ({ id, encadrant }) => {
+  const { data, errors } = await xcApollo.mutate({
+    mutation: gql`
+      mutation UpdateEncadrantActivite(
+        $updateEncadrantActiviteId: ID
+        $encadrant: [UserTypeInputSchema]
+      ) {
+        updateEncadrantActivite(
+          id: $updateEncadrantActiviteId
+          encadrant: $encadrant
+        ) {
+          message
+          successful
+        }
+      }
+    `,
+    variables: {
+      encadrant: encadrant,
+      updateEncadrantActiviteId: id,
     },
   });
   return { data, errors };

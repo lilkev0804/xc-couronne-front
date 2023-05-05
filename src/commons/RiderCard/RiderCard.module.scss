@@ -16,12 +16,25 @@
 .name {
   color: black;
   font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.leftCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 .whiteName {
   color: $white !important;
 }
 .avatarNameContainer {
   display: flex;
+  align-items: center;
+}
+.nameVisibCOntainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 .containerInfoCard {
@@ -31,15 +44,28 @@
 }
 .avatarContainer {
   background-color: black;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
+  width: 100px;
+  height: 150px;
   margin-right: 1rem;
 }
-
+.fullCardContainerWhite {
+  background-color: $blueXc;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+  color: $white;
+}
 .fullCardContainer {
   background-color: $white;
   padding: 0.5rem;
   margin-top: 0.5rem;
   border-radius: 4px;
+}
+.fullCardInline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .fullCardContainer {
+    width: 49%;
+  }
 }

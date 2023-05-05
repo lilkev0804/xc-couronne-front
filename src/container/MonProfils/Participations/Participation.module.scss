@@ -3,7 +3,7 @@
 .containerMain {
   width: 100%;
   .titleContainer {
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
 }
 .container {
@@ -19,14 +19,21 @@
   background-color: $blueXc;
   margin-bottom: 1rem;
   border-radius: 6px;
-
   color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .title {
   color: $white;
   text-align: center;
   font-size: 1.2rem;
+}
+.subtitle {
+  font-weight: 400;
+  text-align: center;
+  font-style: italic;
 }
 .buttonContainer {
   padding-top: 0.5rem;

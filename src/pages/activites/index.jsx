@@ -10,7 +10,6 @@ export const getServerSideProps = async ({ params, query }) => {
       notFound: true,
     };
   }
-  console.log(data);
   return {
     props: {
       data: data.getAllActivities,

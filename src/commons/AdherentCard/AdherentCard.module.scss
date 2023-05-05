@@ -1,0 +1,25 @@
+@import "../../styles/variables.scss";
+
+.container {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: $shadow;
+  border: 1px solid $blueXc;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+}
+.mainContainerModified {
+  display: flex;
+  justify-content: space-between;
+}
+.userName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: $breakpoint-s) {
+  .mainContainerModified {
+    flex-direction: column;
+  }
+}
