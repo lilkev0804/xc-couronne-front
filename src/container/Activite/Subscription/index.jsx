@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import styles from "./Subscription.module.scss";
 import { addParticipationUser } from "@/ApiCalls/Users";
-export default function Subscription({ name, user, data }) {
+export default function Subscription({ handleRefesh, user, data }) {
   const [frais, setFrais] = useState("");
   const handleSubscription = useCallback(async () => {
     if (!frais) {
@@ -19,6 +19,7 @@ export default function Subscription({ name, user, data }) {
           frais: parseFloat(frais),
           idEvent: parseInt(data?.id),
           nomEvent: data?.name,
+          date: data?.date,
         },
       ];
     } else {
@@ -26,26 +27,28 @@ export default function Subscription({ name, user, data }) {
         frais: parseFloat(frais),
         idEvent: parseInt(data?.id),
         nomEvent: data?.name,
+        date: data?.date,
       });
     }
-
     await addParticipationUser({
       id: parseInt(user?.id),
       participations: participation,
     })
-      .then(() => {
+      .then((res) => {
         let oldArray = [...(data?.coureur ?? [])];
         oldArray.push({ id: user?.id, username: user?.username });
         addCourreurParticipation({ id: data?.id, coureur: oldArray })
-          .then((res) => window.location.reload())
+          .then((res) => handleRefesh())
           .catch((err) => console.log("err", err));
       })
       .catch((err) => console.log(err));
   }, [
     data?.coureur,
+    data?.date,
     data?.id,
     data?.name,
     frais,
+    handleRefesh,
     user?.id,
     user?.participations,
     user?.username,

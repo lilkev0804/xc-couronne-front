@@ -41,35 +41,49 @@ export default function ActiviteCard({ data }) {
           className={styles.img}
         />
         {/* </div> */}
-        <p className={styles.title}>{data?.name}</p>
+        <div className={styles.containerTitle}>
+          <p className={styles.title}>{data?.name}</p>
+        </div>
       </div>
       <div className={styles.bodyCard}>
         <div className={styles.mainInfo}>
-          {/* <p className={styles.textMainInfo}>{data?.discipline}</p> */}
           <div className={styles.textAndIcon}>
-            <DistanceIcon className={styles.icon} />
+            <div className={styles.iconContainer}>
+              <DistanceIcon className={styles.icon} />
+            </div>
             <p className={styles.textMainInfo}>{data?.distance} km</p>
           </div>
           <div className={styles.textAndIcon}>
-            <DeniveleIcon className={styles.icon} />
+            <div className={styles.iconContainer}></div>
+            <p className={styles.textMainInfo}>{data?.discipline}</p>
+          </div>
+          <div className={styles.textAndIcon}>
+            <div className={styles.iconContainer}>
+              <DeniveleIcon className={styles.icon} />
+            </div>
             <p className={styles.textMainInfo}>{data?.denivele}m</p>
           </div>
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.dateHourContainer}>
             <div className={styles.textAndIcon}>
-              <HourIcon className={styles.icon} />
+              <div className={styles.iconContainer}>
+                <HourIcon className={styles.icon} />
+              </div>
               <p>
-                {format(new Date(data?.date), "dd-MM-yyyy")} à{" "}
-                {getHours(new Date(data?.hour)) +
-                  `h` +
-                  getMinutes(new Date(data?.hour))}
+                {getHours(new Date(data?.hour))}h
+                {getMinutes(new Date(data?.hour)).lenght > 1
+                  ? getMinutes(new Date(data?.hour))
+                  : `0${getMinutes(new Date(data?.hour))}`}{" "}
+                - {format(new Date(data?.date), "dd-MM-yy")}
               </p>
             </div>
           </div>
           <div className={styles.localisationContainer}>
             <div className={styles.textAndIcon}>
-              <PinIcon className={styles.icon} />
+              <div className={styles.iconContainer}>
+                <PinIcon className={styles.icon} />
+              </div>
               <p>
                 {data?.zipcode}, {data?.ville}
               </p>

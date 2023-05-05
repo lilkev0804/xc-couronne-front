@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import MyNavBar from "../Navbar";
 import styles from "./Activite.module.scss";
 import { format, getHours, getMinutes } from "date-fns";
@@ -9,10 +9,15 @@ import Podium from "@/commons/Podium";
 import RiderCard from "@/commons/RiderCard";
 import MyModal from "@/commons/Modal";
 import Subscription from "./Subscription";
-export default function ActivitePage({ data }) {
+import { addEncadrantEvent } from "@/ApiCalls/Activites";
+import Image from "next/image";
+import { formatPratique } from "@/utils/formatEnum";
+export default function ActivitePage({ data, handleRefesh }) {
   const [isOwner, setIsOwner] = useState();
   const { user } = useGlobalContext();
   const [modalSubscription, setModalSubscription] = useState(false);
+  const [modalEncadrant, setModalEncadrant] = useState(false);
+
   useEffect(() => {
     const el = data?.coureur?.filter((el) => el.id === user?.id);
     if (el?.length === 0) {
@@ -25,6 +30,47 @@ export default function ActivitePage({ data }) {
   const handleSubscription = useCallback(async () => {
     setModalSubscription(true);
   }, []);
+
+  const handleAddEncadrant = useCallback(() => {
+    setModalEncadrant(true);
+  }, []);
+
+  const handleSumbitEncadrant = useCallback(async () => {
+    let array = data?.encadrant;
+    if (data?.encadrant === null) {
+      array = [{ id: user?.id }];
+    } else {
+      array.push({ id: user?.id });
+    }
+
+    await addEncadrantEvent({
+      id: parseInt(data?.id),
+      encadrant: array,
+    })
+      .then((res) => {
+        handleRefesh();
+        setModalEncadrant(false);
+      })
+      .catch((er) => console.log(err));
+  }, [data?.encadrant, data?.id, handleRefesh, user?.id]);
+
+  const srcImg = useMemo(() => {
+    if (data?.discipline === "XCO") {
+      return "xco";
+    }
+    if (data?.discipline === "XCM") {
+      return "xcm";
+    }
+    if (data?.discipline === "RANDO") {
+      return "rando";
+    }
+    if (data?.discipline === "ROAD") {
+      return "route";
+    }
+    if (data?.discipline === "CX") {
+      return "cx";
+    }
+  }, [data?.discipline]);
 
   return (
     <>
@@ -39,20 +85,64 @@ export default function ActivitePage({ data }) {
           handleClose={() => setModalSubscription(false)}
           open={modalSubscription}
         >
-          <Subscription data={data} user={user} />
+          <Subscription
+            data={data}
+            handleRefesh={() => {
+              setModalSubscription(false);
+              handleRefesh();
+            }}
+            user={user}
+          />
         </MyModal>
-        <div className={styles.hero}>{data?.name}</div>
+        <MyModal
+          handleClose={() => setModalEncadrant(false)}
+          open={modalEncadrant}
+        >
+          <div>
+            <p>
+              Je confirme bien vouloir m&apos;inscrire comme encadrant à{" "}
+              {data?.name}
+            </p>
+            <div className={styles.actionButton}>
+              <Button variant="outlined" onClick={handleSumbitEncadrant}>
+                S&apos;inscrire
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => setModalEncadrant(false)}
+              >
+                Annuler
+              </Button>
+            </div>
+          </div>
+        </MyModal>
+        <div className={styles.hero}>
+          <Image
+            src={`/assets/${srcImg}.jpeg`}
+            alt="visuel"
+            fill
+            className={styles.img}
+          />
+          {/* </div> */}
+          <div className={styles.containerTitle}>
+            <div>
+              <p className={styles.title}>{data?.name}</p>
+              <p className={styles.title}>{formatPratique(data?.discipline)}</p>
+            </div>
+          </div>
+        </div>
         <div className={styles.mainContainer}>
           <div className={styles.informationContainer}>
             <div className={styles.textContainer}>
               <p>
-                {" "}
-                <span>Date</span> : {format(new Date(data?.date), "dd-MM-yy")}
+                <span>🗓️ Date</span> :{" "}
+                {format(new Date(data?.date), "dd-MM-yy")}
               </p>
             </div>
             <div className={styles.textContainer}>
               <p>
-                <span>Horaire de départ</span> :{" "}
+                <span> 🕐 Horaire de départ</span> :{" "}
                 {getHours(new Date(data?.hour))}h
                 {getMinutes(new Date(data?.hour)).lenght > 1
                   ? getMinutes(new Date(data?.hour))
@@ -61,7 +151,7 @@ export default function ActivitePage({ data }) {
             </div>
             <div className={styles.textContainer}>
               <p>
-                <span>Lieu</span> : {data?.ville} ({data?.zipcode})
+                <span>📍 Lieu</span> : {data?.ville} ({data?.zipcode})
               </p>
             </div>
           </div>
@@ -91,15 +181,26 @@ export default function ActivitePage({ data }) {
               <div className={styles.blockContainer}>
                 <div className={styles.headerActionBlockContainer}>
                   <p className={styles.titleCard}>🦺 Encadrants</p>
+                  {user?.encadrant && (
+                    <Button variant="outlined" onClick={handleAddEncadrant}>
+                      S&apos;inscrire
+                    </Button>
+                  )}
                 </div>
-                <div className={styles.podiumContainer}></div>
+                <div>
+                  {data?.encadrant?.map((el, i) => (
+                    <div className={styles.riderCardContainer} key={i}>
+                      <RiderCard encadrant data={el} isWhite={true} />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className={styles.blockContainer}>
+              {/* <div className={styles.blockContainer}>
                 <div className={styles.headerActionBlockContainer}>
                   <p className={styles.titleCard}>👑 Resultats</p>
                 </div>
                 <div className={styles.podiumContainer}></div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

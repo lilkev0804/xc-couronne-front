@@ -18,6 +18,9 @@ const nextConfig = {
   experimental: {
     externalDir: true,
   },
+  images: {
+    domains: ["drive.google.com"],
+  },
 };
 
 module.exports = nextConfig;

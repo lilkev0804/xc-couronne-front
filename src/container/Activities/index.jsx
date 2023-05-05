@@ -6,16 +6,17 @@ import { Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
 import ActiviteCard from "@/components/ActiviteCard";
 import FilterActivites from "./filter";
+import _ from "lodash";
 export default function ActivitiesContainer({ data }) {
   const router = useRouter();
   const [local, setLocal] = useState([]);
+  const [nameEvent, setNameEvent] = useState();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setLocal(data);
+    setLocal(_.orderBy(data, [(obj) => new Date(obj.date)], ["asc"]));
     setLoading(false);
   }, [data]);
-
   const handleSubmit = useCallback(
     (e) => {
       setLoading(true);
@@ -23,7 +24,6 @@ export default function ActivitiesContainer({ data }) {
       if (e?.type) {
         const res = el.filter((el) => el.discipline === e?.type);
         setLocal(res);
-        console.log(res);
         setLoading(false);
         return;
       }
@@ -36,6 +36,18 @@ export default function ActivitiesContainer({ data }) {
     setLocal(data);
     setLoading(false);
   }, [data]);
+
+  const searchByName = useCallback(
+    (e) => {
+      const filter = data?.filter(
+        (el) =>
+          el.name.toLowerCase().includes(e) ||
+          el.ville.toLowerCase().includes(e)
+      );
+      setLocal(filter);
+    },
+    [data]
+  );
 
   if (loading) {
     return <CircularProgress />;
@@ -60,6 +72,10 @@ export default function ActivitiesContainer({ data }) {
             </Button>
           </div>
           <FilterActivites
+            searchBar={{
+              onChange: searchByName,
+              value: nameEvent,
+            }}
             onChange={handleSubmit}
             handleRestart={handleRestart}
           />

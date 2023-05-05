@@ -122,7 +122,9 @@ export default function AjouterActivite() {
           </MyModal>
         )}
         <div className={styles.container}>
-          <h2>Ajouter une activitée</h2>
+          <div className={styles.titleContainer}>
+            <h2>Ajouter une activitée</h2>
+          </div>
           <div className={styles.selectContainer}>
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-simple-select-label">Discipline</InputLabel>

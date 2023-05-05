@@ -1,12 +1,10 @@
 import SelectCustom from "@/commons/SelectCustom";
 import React, { useCallback, useState } from "react";
 import styles from "./Filter.module.scss";
-import { DatePicker } from "@mui/x-date-pickers";
-import DatePickerCustom from "@/commons/DatePickerCustome";
-import dayjs from "dayjs";
 import { Button } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
+import SearchBar from "@/components/SearchBar";
 
 const data = [
   {
@@ -31,7 +29,12 @@ const data = [
   },
 ];
 
-export default function FilterActivites({ value, onChange, handleRestart }) {
+export default function FilterActivites({
+  value,
+  onChange,
+  handleRestart,
+  searchBar,
+}) {
   const [openFilter, setOpenFilter] = useState(false);
   const [localValue, setLocalValue] = useState({
     type: "",
@@ -46,6 +49,13 @@ export default function FilterActivites({ value, onChange, handleRestart }) {
 
   return (
     <div className={styles.container}>
+      <div>
+        <SearchBar
+          onChange={searchBar?.onChange}
+          value={searchBar?.value}
+          placeholder={"Par nom ou ville"}
+        />
+      </div>
       {openFilter && (
         <div className={styles.menuContainer}>
           <div className={styles.titleContainer}>
@@ -60,6 +70,7 @@ export default function FilterActivites({ value, onChange, handleRestart }) {
               data={data}
             />
           </div>
+
           {/* <div className={styles.selectorContainer}>
             <DatePickerCustom
               minDate={dayjs(new Date())}

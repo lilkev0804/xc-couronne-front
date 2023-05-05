@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useGlobalContext } from "@/store/globalcontext";
 export default function MyNavBar() {
   const router = useRouter();
-  const { setUser } = useGlobalContext();
+  const { user, setUser } = useGlobalContext();
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleDisconnect = useCallback(() => {
@@ -33,12 +33,14 @@ export default function MyNavBar() {
         </div>
       </Drawer>
       <div className={styles.menuLine}>
-        <button
-          className={styles.buttonMenu}
-          onClick={() => setOpenMenu(!openMenu)}
-        >
-          <MenuIcon sx={{ color: "white" }} fontSize="large" />
-        </button>
+        {user && (
+          <button
+            className={styles.buttonMenu}
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            <MenuIcon sx={{ color: "white" }} fontSize="large" />
+          </button>
+        )}
 
         <p className={styles.logo}>XC Couronne</p>
       </div>

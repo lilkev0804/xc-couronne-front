@@ -7,7 +7,6 @@ import { useGlobalContext } from "@/store/globalcontext";
 import Participation from "./Participations";
 export default function MonProfilsContainer() {
   const { user, setUser } = useGlobalContext();
-
   return (
     <>
       <Head>
@@ -23,6 +22,7 @@ export default function MonProfilsContainer() {
             user={user}
             setUser={setUser}
           />
+          {/* <Stats participations={user?.participations} /> */}
         </div>
       </main>
     </>

@@ -7,6 +7,13 @@
   align-items: center;
   padding: 2rem 0;
 }
+.titleContainer {
+  width: 100%;
+  display: flex;
+  padding-bottom: 2rem;
+  align-items: center;
+  justify-content: center;
+}
 .selectContainer,
 .controlInputContainer,
 .controlInputContainerInline,

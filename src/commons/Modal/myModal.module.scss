@@ -9,3 +9,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@media screen and (max-width: $breakpoint-m) {
+  .bodyModal {
+    min-width: unset;
+    width: 95vw;
+  }
+}

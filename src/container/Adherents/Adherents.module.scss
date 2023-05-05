@@ -1,0 +1,24 @@
+@import "../../styles/variables.scss";
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1rem;
+}
+.cardContainer {
+  padding-top: 2rem;
+  width: 100%;
+  max-width: $screenmax;
+}
+
+.titleContainer {
+  padding: 1rem 0;
+}
+.filterContainer {
+  width: 100%;
+  max-width: $screenmax;
+  display: flex;
+}
