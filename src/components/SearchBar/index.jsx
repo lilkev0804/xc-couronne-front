@@ -51,7 +51,7 @@ export default function SearchBar({ placeholder, onChange, value }) {
         <StyledInputBase
           //   defaultValue=""
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value.toLowerCase())}
           placeholder={placeholder}
           inputProps={{ "aria-label": "search" }}
         />
