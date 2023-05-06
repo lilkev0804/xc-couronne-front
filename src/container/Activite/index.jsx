@@ -160,7 +160,8 @@ export default function ActivitePage({ data, handleRefesh }) {
               <div className={styles.blockContainer}>
                 <div className={styles.headerActionBlockContainer}>
                   <p className={styles.titleCard}>
-                    🦾 Participant {data?.coureur?.lenght > 0 && "s"}
+                    🦾 Participant{data?.coureur?.length > 1 && "s"} (
+                    {data?.coureur?.length})
                   </p>
                   {!isOwner && (
                     <Button variant="outlined" onClick={handleSubscription}>
@@ -180,7 +181,10 @@ export default function ActivitePage({ data, handleRefesh }) {
             <div className={styles.rightContainer}>
               <div className={styles.blockContainer}>
                 <div className={styles.headerActionBlockContainer}>
-                  <p className={styles.titleCard}>🦺 Encadrants</p>
+                  <p className={styles.titleCard}>
+                    🦺 Encadrants{data?.encadrant?.length > 1 && "s"} (
+                    {data?.encadrant?.length})
+                  </p>
                   {user?.encadrant && (
                     <Button variant="outlined" onClick={handleAddEncadrant}>
                       S&apos;inscrire
