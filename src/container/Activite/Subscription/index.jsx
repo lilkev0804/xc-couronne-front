@@ -4,7 +4,9 @@ import { Button } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import styles from "./Subscription.module.scss";
 import { addParticipationUser } from "@/ApiCalls/Users";
+import { useGlobalContext } from "@/store/globalcontext";
 export default function Subscription({ handleRefesh, user, data }) {
+  const { setUser } = useGlobalContext();
   const [frais, setFrais] = useState("");
   const handleSubscription = useCallback(async () => {
     if (!frais) {
@@ -20,6 +22,9 @@ export default function Subscription({ handleRefesh, user, data }) {
           idEvent: parseInt(data?.id),
           nomEvent: data?.name,
           date: data?.date,
+          discipline: data?.discipline,
+          resultatCat: null,
+          resultatScratch: null,
         },
       ];
     } else {
@@ -28,6 +33,9 @@ export default function Subscription({ handleRefesh, user, data }) {
         idEvent: parseInt(data?.id),
         nomEvent: data?.name,
         date: data?.date,
+        discipline: data?.discipline,
+        resultatCat: null,
+        resultatScratch: null,
       });
     }
     await addParticipationUser({
@@ -38,20 +46,22 @@ export default function Subscription({ handleRefesh, user, data }) {
         let oldArray = [...(data?.coureur ?? [])];
         oldArray.push({ id: user?.id, username: user?.username });
         addCourreurParticipation({ id: data?.id, coureur: oldArray })
-          .then((res) => handleRefesh())
+          .then((res) => {
+            setUser({ ...user, participations: participation });
+            handleRefesh();
+          })
           .catch((err) => console.log("err", err));
       })
       .catch((err) => console.log(err));
   }, [
     data?.coureur,
     data?.date,
+    data?.discipline,
     data?.id,
     data?.name,
     frais,
     handleRefesh,
-    user?.id,
-    user?.participations,
-    user?.username,
+    user,
   ]);
 
   return (
@@ -68,7 +78,7 @@ export default function Subscription({ handleRefesh, user, data }) {
       </div>
       <div className={styles.buttonContainer}>
         <Button onClick={handleSubscription} fullWidth variant="outlined">
-          Sauvegarder
+          S&apos;inscrire
         </Button>
       </div>
     </div>

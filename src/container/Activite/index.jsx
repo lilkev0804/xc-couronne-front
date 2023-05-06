@@ -5,7 +5,6 @@ import styles from "./Activite.module.scss";
 import { format, getHours, getMinutes } from "date-fns";
 import { Button, Modal } from "@mui/material";
 import { useGlobalContext } from "@/store/globalcontext";
-import Podium from "@/commons/Podium";
 import RiderCard from "@/commons/RiderCard";
 import MyModal from "@/commons/Modal";
 import Subscription from "./Subscription";

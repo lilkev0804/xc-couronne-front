@@ -2,7 +2,7 @@ import { getAllActivities } from "@/ApiCalls/Activites";
 import DashboardContainer from "@/container/Dashboard";
 import React from "react";
 
-export const getServerSideProps = async ({ params, query }) => {
+export const getServerSideProps = async () => {
   const req = await getAllActivities();
   const data = req.data;
   if (req.errors || !data.getAllActivities) {

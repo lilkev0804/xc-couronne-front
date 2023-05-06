@@ -1,0 +1,78 @@
+@import "../../styles/variables.scss";
+
+.main {
+  background-color: $black;
+  min-height: 100vh;
+}
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 100%;
+
+  max-width: $screenmax;
+}
+.titleContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem;
+  h2 {
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+  }
+  h4 {
+    color: $white;
+    text-transform: uppercase;
+    font-weight: lighter;
+  }
+}
+.containercard {
+  display: flex;
+  flex-wrap: wrap;
+}
+.whiteCard {
+  padding: 1rem;
+  width: 200px;
+  margin: 1rem;
+}
+.textRed {
+  color: red;
+  text-transform: uppercase;
+}
+.countInfoParticipation {
+  p {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+}
+
+.namAndLastNameContainer {
+  color: white;
+  p {
+    text-transform: uppercase;
+    line-height: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 0.3rem;
+  }
+}
+.textcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .textRed {
+    font-size: 2rem;
+    line-height: 2.6rem;
+    color: red;
+    text-transform: uppercase;
+  }
+}

@@ -13,9 +13,8 @@ export default function MyNavBar() {
   const handleDisconnect = useCallback(() => {
     router.push("/");
     localStorage.removeItem("user");
-    setUser({});
+    setUser();
   }, [router, setUser]);
-
   return (
     <div className={styles.container}>
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)}>
@@ -25,8 +24,18 @@ export default function MyNavBar() {
             <Link href={"/dashboard"}>Accueil</Link>
             <Link href={"/mon-profils"}>Mon Profils</Link>
             <Link href={"/activites"}>Les Activités</Link>
-            <Link href={"/classement"}>Classements</Link>
+            <Link href={"/statistiques"}>Statistiques</Link>
             <Link href={"/courreurs"}>Les Courreurs</Link>
+            <Link href={"/commandes"}>Commandes</Link>
+
+            {user?.admin && (
+              <div className={styles.linkContainerAdmin}>
+                <span className={styles.labelAdmin}>ADMIN</span>
+                <Link href={"/comptabilite"}>Comptabilite</Link>
+                <Link href={"/commandes"}>Commandes</Link>
+                <Link href={"/les-adherents"}>Les Adhérents</Link>
+              </div>
+            )}
             <Button variant="outlined" onClick={handleDisconnect}>
               Deconnexion
             </Button>

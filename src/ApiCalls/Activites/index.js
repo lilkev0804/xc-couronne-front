@@ -69,6 +69,7 @@ export const getAllActivities = async () => {
             id
             username
           }
+          datecreation
           zipcode
           ville
           podium {
@@ -110,6 +111,7 @@ export const getActivitiesById = async ({ id }) => {
           zipcode
           distance
           denivele
+          datecreation
           discipline
           coureur {
             id

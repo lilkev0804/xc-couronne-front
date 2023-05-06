@@ -171,6 +171,11 @@ export const getAllCoureur = async () => {
           username
           participations {
             idEvent
+            resultatCat
+            resultatScratch
+            discipline
+            date
+            frais
           }
           information {
             licenceType
@@ -180,6 +185,8 @@ export const getAllCoureur = async () => {
           }
           avatar
           encadrant
+          nom
+          prenom
         }
       }
     `,

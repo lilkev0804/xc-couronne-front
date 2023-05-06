@@ -18,6 +18,7 @@
   color: $white;
   letter-spacing: 1.35rem;
   text-align: center;
+  font-family: $font-main;
 }
 .menu {
   background-color: $blueXc;
@@ -55,6 +56,24 @@
       text-decoration: underline;
     }
   }
+}
+.linkContainerAdmin {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid white;
+  a {
+    color: $white;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+.labelAdmin {
+  font-size: 1rem;
+  color: $white;
+  padding: 0.5rem 0;
 }
 
 @media screen and (max-width: $breakpoint-m) {

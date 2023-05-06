@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchBar from "@/components/SearchBar";
+import InputRadio from "@/commons/InputRadio";
 
 const data = [
   {
@@ -41,11 +42,16 @@ export default function FilterActivites({
     date: "",
     nom: "",
   });
+  const [orderValue, setOrderValue] = useState("new");
 
   const onSubmit = useCallback(() => {
     onChange(localValue);
     setOpenFilter(false);
   }, [onChange, localValue]);
+
+  const handleChangeOrder = useCallback((e) => {
+    setOrderValue(e);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -72,11 +78,24 @@ export default function FilterActivites({
           </div>
 
           {/* <div className={styles.selectorContainer}>
-            <DatePickerCustom
-              minDate={dayjs(new Date())}
-              classic={true}
-              onChange={(e) => setLocalValue({ ...localValue, date: e?.$d })}
-              label={"Date choisie"}
+            <InputRadio
+              data={[
+                {
+                  value: "new",
+                  label: "Nouveau",
+                },
+                {
+                  value: "asc",
+                  label: "A venir",
+                },
+                {
+                  value: "desc",
+                  label: "Passé",
+                },
+              ]}
+              label={"Ordre"}
+              value={orderValue}
+              onChange={handleChangeOrder}
             />
           </div> */}
           <div className={styles.buttonContainerFilter}>
@@ -87,6 +106,7 @@ export default function FilterActivites({
               onClick={() => {
                 handleRestart();
                 setOpenFilter(false);
+                setOrderValue("");
                 setLocalValue({
                   type: "",
                   date: "",
