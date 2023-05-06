@@ -4,17 +4,29 @@ import styles from "./Dashboard.module.scss";
 import { useGlobalContext } from "@/store/globalcontext";
 import Head from "next/head";
 import DashBoardCard from "./dashboardCard";
-import { filterActivitybyMonth } from "@/utils/filterbyMonth";
+import {
+  filterActivitybyMonth,
+  filterActivitybyWeek,
+} from "@/utils/filterDate";
 import ActiviteCard from "@/components/ActiviteCard";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
+import { getWeek } from "date-fns";
+import { fr } from "date-fns/locale";
 
 export default function DashboardContainer({ data }) {
   const { user } = useGlobalContext();
   const [monthlyActivite, setMonthlyActivite] = useState([]);
+  const [weeklyEvent, setWeeklyEvent] = useState([]);
   const router = useRouter();
   useEffect(() => {
     setMonthlyActivite(filterActivitybyMonth(data, new Date().getMonth() + 1));
+    setWeeklyEvent(
+      filterActivitybyWeek(data, getWeek(new Date()), {
+        weekStartsOn: 1,
+        locale: fr,
+      })
+    );
   }, [data]);
 
   return (
@@ -26,7 +38,23 @@ export default function DashboardContainer({ data }) {
       <main className={styles.mainContainer}>
         <div className={styles.containerMiseEnAvant}>
           <div className={styles.titleContainer}>
-            <h2>Activités du mois </h2>
+            <h2>Activités cette semaine ({weeklyEvent.length})</h2>
+            <Button
+              onClick={() => router.push("/activites")}
+              variant="outlined"
+            >
+              Voir plus
+            </Button>
+          </div>
+          <div className={styles.containerCard}>
+            {weeklyEvent?.map((el, i) => (
+              <ActiviteCard key={i} data={el} />
+            ))}
+          </div>
+        </div>
+        <div className={styles.containerMiseEnAvant}>
+          <div className={styles.titleContainer}>
+            <h2>Activités du mois ({monthlyActivite?.length})</h2>
             <Button
               onClick={() => router.push("/activites")}
               variant="outlined"

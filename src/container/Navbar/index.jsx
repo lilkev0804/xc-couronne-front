@@ -15,6 +15,7 @@ export default function MyNavBar() {
     localStorage.removeItem("user");
     setUser({});
   }, [router, setUser]);
+
   return (
     <div className={styles.container}>
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)}>
