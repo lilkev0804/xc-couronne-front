@@ -19,3 +19,25 @@ export const filterActivitybyWeek = (activite, week) => {
 
   return filter;
 };
+
+export const filterbyMonth = (data, month, year) => {
+  const res = data?.map((el) => ({
+    ...el,
+    participations: el.participations.filter(
+      (i) =>
+        new Date(i.date).getMonth() + 1 === month &&
+        new Date(i.date).getFullYear() === year
+    ),
+  }));
+  return res;
+};
+
+export const filterbyYear = (data, year) => {
+  const res = data?.map((el) => ({
+    ...el,
+    participations: el.participations.filter(
+      (i) => new Date(i.date).getFullYear() === year
+    ),
+  }));
+  return res;
+};

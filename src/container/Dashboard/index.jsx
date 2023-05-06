@@ -14,10 +14,61 @@ import { useRouter } from "next/router";
 import { getWeek } from "date-fns";
 import { fr } from "date-fns/locale";
 
+import { styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 35,
+  height: 20,
+  padding: 0,
+  display: "flex",
+  "&:active": {
+    "& .MuiSwitch-thumb": {
+      width: 15,
+    },
+    "& .MuiSwitch-switchBase.Mui-checked": {
+      transform: "translateX(9px)",
+    },
+  },
+  "& .MuiSwitch-switchBase": {
+    padding: 2,
+    "&.Mui-checked": {
+      transform: "translateX(12px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#091726",
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
+    width: 18,
+    height: 16,
+    borderRadius: 6,
+    transition: theme.transitions.create(["width"], {
+      duration: 200,
+    }),
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor: theme.palette.mode === "dark" ? "red" : "#091726",
+    boxSizing: "border-box",
+  },
+}));
+
 export default function DashboardContainer({ data }) {
   const { user } = useGlobalContext();
   const [monthlyActivite, setMonthlyActivite] = useState([]);
   const [weeklyEvent, setWeeklyEvent] = useState([]);
+  const [switcher, setSwitcher] = useState({
+    onWeek: true,
+    onMonthly: false,
+  });
+
   const router = useRouter();
   useEffect(() => {
     setMonthlyActivite(filterActivitybyMonth(data, new Date().getMonth() + 1));
@@ -36,53 +87,54 @@ export default function DashboardContainer({ data }) {
       </Head>
       <MyNavBar />
       <main className={styles.mainContainer}>
-        <div className={styles.containerMiseEnAvant}>
-          <div className={styles.titleContainer}>
-            <h2>Activités cette semaine ({weeklyEvent.length})</h2>
-            <Button
-              onClick={() => router.push("/activites")}
-              variant="outlined"
+        <div className={styles.containerSwitch}>
+          <h2>Activités</h2>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Typography
+              fontSize={16}
+              color={`${switcher?.onWeek ? "#091726" : "black"}`}
             >
-              Voir plus
-            </Button>
-          </div>
-          <div className={styles.containerCard}>
-            {weeklyEvent?.map((el, i) => (
-              <ActiviteCard key={i} data={el} />
-            ))}
-          </div>
-        </div>
-        <div className={styles.containerMiseEnAvant}>
-          <div className={styles.titleContainer}>
-            <h2>Activités du mois ({monthlyActivite?.length})</h2>
-            <Button
-              onClick={() => router.push("/activites")}
-              variant="outlined"
+              Hebdomadaire ({weeklyEvent.length})
+            </Typography>
+            <AntSwitch
+              defaultValue={switcher?.onWeek}
+              value={switcher?.onWeek}
+              onChange={(e) => {
+                setSwitcher({
+                  onWeek: !switcher.onWeek,
+                  onMonthly: !switcher?.onMonthly,
+                });
+              }}
+              inputProps={{ "aria-label": "ant design" }}
+            />
+            <Typography
+              fontSize={16}
+              color={`${switcher?.onMonthly ? "#091726" : "black"}`}
             >
-              Voir plus
-            </Button>
-          </div>
-          <div className={styles.containerCard}>
-            {monthlyActivite?.map((el, i) => (
-              <ActiviteCard key={i} data={el} />
-            ))}
-          </div>
+              Mensuelle ({monthlyActivite.length})
+            </Typography>
+          </Stack>
+          <Button onClick={() => router.push("/activites")} variant="outlined">
+            Voir plus
+          </Button>
         </div>
-        {user?.admin && (
-          <>
-            <div className={styles.titleContainer}>
-              <h2>Administrateur</h2>
+        {switcher?.onWeek && (
+          <div className={styles.containerMiseEnAvant}>
+            <div className={styles.containerCard}>
+              {weeklyEvent?.map((el, i) => (
+                <ActiviteCard key={i} data={el} />
+              ))}
             </div>
-            <div className={styles.container}>
-              <DashBoardCard target={`/mon-profils`} label={"Comptabilité"} />
-              <DashBoardCard target={`/activites`} label={"Commande produit"} />
-              <DashBoardCard
-                target={`/les-adherents`}
-                label={"Les adhérents"}
-              />
-              <DashBoardCard target={`/les-adherents`} label={"Recap"} />
+          </div>
+        )}
+        {switcher?.onMonthly && (
+          <div className={styles.containerMiseEnAvant}>
+            <div className={styles.containerCard}>
+              {monthlyActivite?.map((el, i) => (
+                <ActiviteCard key={i} data={el} />
+              ))}
             </div>
-          </>
+          </div>
         )}
       </main>
     </>

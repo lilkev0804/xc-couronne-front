@@ -26,7 +26,11 @@ export default function Participation({
         idEvent: el[id].idEvent,
         resultatScratch: parseInt(value),
         resultatCat: el[id].resultatCat,
+        date: el[id].date,
+        discipline: el[id].discipline,
+        nomEvent: el[id].nomEvent,
       };
+
       await updateUserParticipation({
         id: parseInt(user?.id),
         participations: el,
@@ -45,6 +49,9 @@ export default function Participation({
         idEvent: el[id].idEvent,
         resultatScratch: el[id].resultatScratch,
         resultatCat: parseInt(value),
+        date: el[id].date,
+        discipline: el[id].discipline,
+        nomEvent: el[id].nomEvent,
       };
       await updateUserParticipation({
         id: parseInt(user?.id),
@@ -74,7 +81,7 @@ export default function Participation({
                 <p>Frais engager : {el.frais} €</p>
               </div>
             )}
-            {el?.discipline !== "Randonnée" && (
+            {el?.discipline !== "Randonnée" && el?.discipline !== "RANDO" && (
               <>
                 <div className={styles.modifiedContainer}>
                   <ModifiedInput
