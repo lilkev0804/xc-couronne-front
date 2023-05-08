@@ -1,16 +1,23 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./RiderCard.module.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Link from "next/link";
 import Image from "next/image";
 import { formatPratique } from "@/utils/formatEnum";
+import { filterPodium } from "@/utils/filterActiviteType";
 export default function RiderCard({
   encadrant = false,
   data,
   isWhite,
   fullCard,
 }) {
+  const podium = useCallback(() => {
+    const res = filterPodium(data, true);
+
+    return res;
+  }, [data]);
+
   return (
     <div
       className={classNames(styles.container, {
@@ -89,7 +96,7 @@ export default function RiderCard({
             </div>
             <div className={styles.fullCardContainer}>
               <div>
-                <p>🏆 Nombre de Podium : {data?.participations.length}</p>
+                <p>🏆 Nombre de Podium : {podium()}</p>
               </div>
             </div>
           </div>
